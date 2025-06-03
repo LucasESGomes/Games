@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortnite Forca</title>
+    <link rel="preload" href="fonts/BurbankBigCondensed-Black.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        /* ============== ESTILO FORTNITE ============== */
+        @font-face {
+            font-family: 'Burbank';
+            src: url('fonts/Burbank\ Big\ Condensed\ Black.otf') format('woff2'),
+                 url('fonts/Burbank\ Big\ Condensed\ Black.ttf') format('truetype');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --fn-blue: #00b4ff;
+            --fn-dark-blue: #005fcc;
+            --fn-darker-blue: #003b7a;
+            --fn-light-blue: #7fd9ff;
+            --fn-white: #ffffff;
+            --fn-black: #000000;
+            --fn-yellow: #ffd700;
+            --fn-orange: #ff7b00;
+            --fn-green: #00cc00;
+            --fn-red: #ff0000;
+            --fn-purple: #d800d8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Burbank', sans-serif;
+            color: var(--fn-white);
+            background-color: var(--fn-black);
+            min-height: 100vh;
+            overflow-x: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .fortnite-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('img/background.jpg') no-repeat center center;
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        /* ============== HEADER ATUALIZADO ============== */
+        .fortnite-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            background: linear-gradient(135deg, var(--fn-darker-blue) 0%, var(--fn-dark-blue) 50%, var(--fn-darker-blue) 100%);
+            border-bottom: 3px solid var(--fn-yellow);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+            padding: 0 20px;
+        }
+
+        .fortnite-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            margin: 200px;
+            background: linear-gradient(90deg, 
+                          rgba(0,180,255,0.1) 0%, 
+                          rgba(0,180,255,0.3) 50%, 
+                          rgba(0,180,255,0.1) 100%);
+            z-index: 1;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+            width: 1920px;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            position: relative;
+            z-index: 2;
+            padding: 1;
+        }
+
+        .header-logo {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--fn-white);
+            letter-spacing: 3px;
+            text-shadow: 
+                3px 3px 0 var(--fn-dark-blue),
+                -1px -1px 0 var(--fn-dark-blue),
+                1px -1px 0 var(--fn-dark-blue),
+                -1px 1px 0 var(--fn-dark-blue),
+                1px 1px 0 var(--fn-dark-blue);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid var(--fn-blue);
+            box-shadow: 
+                inset 0 0 10px rgba(0, 180, 255, 0.3),
+                0 0 20px rgba(0, 180, 255, 0.2);
+            transition: all 0.3s ease;
+            margin-right: 100px;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
+            text-shadow: 
+                3px 3px 0 var(--fn-blue),
+                -1px -1px 0 var(--fn-blue),
+                1px -1px 0 var(--fn-blue),
+                -1px 1px 0 var(--fn-blue),
+                1px 1px 0 var(--fn-blue);
+            box-shadow: 
+                inset 0 0 15px rgba(0, 180, 255, 0.5),
+                0 0 30px rgba(0, 180, 255, 0.4);
+        }
+
+        .vbucks-display{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 500px;
+            margin-right: 100px;
+        }
+
+        .vbucks-display a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            color: var(--fn-white);
+            text-decoration: none;
+            padding: 10px 20px;
+            background: linear-gradient(to bottom, rgba(0, 95, 204, 0.7), rgba(0, 59, 122, 0.9));
+            border-radius: 30px;
+            border: 2px solid var(--fn-yellow);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 
+                0 3px 6px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vbucks-display a::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 45%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 55%
+            );
+            transform: rotate(30deg);
+            transition: all 0.5s ease;
+        }
+
+        .vbucks-display a:hover {
+            background: linear-gradient(to bottom, rgba(0, 180, 255, 0.7), rgba(0, 95, 204, 0.9));
+            transform: translateY(-3px);
+            box-shadow: 
+                0 5px 10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+        }
+
+        .vbucks-display a:hover::before {
+            left: 100%;
+        }
+
+        .vbucks-display img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        /* ============== CHARACTER SELECTOR ============== */
+        .character-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+            margin-right: 40px;
+        }
+
+        .character-btn {
+            background: linear-gradient(to bottom, var(--fn-blue), var(--fn-dark-blue));
+            border: 2px solid var(--fn-yellow);
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .character-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--fn-blue);
+        }
+
+        .character-btn img {
+            width: 300px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 100%;
+        }
+
+        .character-menu {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid var(--fn-blue);
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 250px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .character-menu.show {
+            display: flex;
+        }
+
+        .character-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            overflow: hidden;
+        }
+
+        .character-option:hover {
+            transform: scale(1.1);
+            border-color: var(--fn-yellow);
+        }
+
+        .character-option.selected {
+            border-color: var(--fn-yellow);
+            box-shadow: 0 0 10px var(--fn-yellow);
+        }
+
+        .character-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 100%;
+        }
+
+        /* ============== MAIN GAME ============== */
+        .fortnite-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            height: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .new-game {
+            background: linear-gradient(to bottom, var(--fn-blue), var(--fn-dark-blue));
+            border-top: 2px solid var(--fn-light-blue);
+            border-bottom: 2px solid var(--fn-darker-blue);
+            color: var(--fn-white);
+            padding: 12px 25px;
+            font-size: 1.3rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Burbank', sans-serif;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .new-game:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 180, 255, 0.4);
+        }
+
+        .game-area {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 1900px
+        }
+
+        .hangman-image {
+            flex: 1;
+            min-height: 400px;
+            max-height: 500px;
+            min-width: 400px;
+            max-width: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgb(255, 255, 255);
+            border: 3px solid var(--fn-blue);
+            border-radius: 35px;
+            padding: 20px;
+            box-shadow: 
+                0 0 30px rgba(0, 180, 255, 0.3),
+                inset 0 0 20px rgba(127, 217, 255, 0.1);
+        }
+
+        .hangman-image img {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+        }
+
+        .game-content {
+            flex: 1;
+            min-width: 800px;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--fn-blue);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 
+                0 0 30px rgba(0, 180, 255, 0.3),
+                inset 0 0 20px rgba(127, 217, 255, 0.1);
+        }
+
+        .word-display {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            font-size: clamp(2rem, 5vw, 3rem);
+            min-height: 80px;
+        }
+
+        .letter {
+            width: 40px;
+            text-align: center;
+            color: var(--fn-white);
+            text-shadow: 2px 2px 0 var(--fn-dark-blue);
+            position: relative;
+        }
+
+        .letter::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--fn-blue);
+        }
+
+        .letter.visible {
+            color: var(--fn-yellow);
+        }
+
+        .clue {
+            font-size: 1.3rem;
+            text-align: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--fn-green);
+            border-radius: 10px;
+            color: var(--fn-white);
+        }
+
+        .keyboard {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 15px;
+        }
+
+        .key-btn {
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
+            border: 2px solid var(--fn-purple);
+            border-radius: 5px;
+            color: var(--fn-white);
+            font-family: 'Burbank', sans-serif;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .key-btn:hover {
+            background: linear-gradient(to bottom, #3a3a3a, #2a2a2a);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .key-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .key-btn.correct {
+            background: linear-gradient(to bottom, #00cc00, #009900);
+            border-color: var(--fn-green);
+        }
+
+        .key-btn.wrong {
+            background: linear-gradient(to bottom, #cc0000, #990000);
+            border-color: var(--fn-red);
+        }
+
+        /* ============== NOTIFICATION ============== */
+        .fortnite-notification {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(350px, 90%);
+            background: linear-gradient(to right, var(--fn-dark-blue), var(--fn-darker-blue));
+            border: 2px solid var(--fn-yellow);
+            border-radius: 8px;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 100;
+        }
+
+        .fortnite-notification.show {
+            bottom: 30px;
+            opacity: 1;
+        }
+
+        .notification-bar {
+            height: 5px;
+            background: linear-gradient(to right, var(--fn-yellow), var(--fn-orange));
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            gap: 10px;
+        }
+
+        .notification-content img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .notification-content p {
+            font-size: 1rem;
+            color: var(--fn-yellow);
+            text-shadow: 2px 2px 0 var(--fn-dark-blue);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* ============== RESPONSIVE ============== */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 15px;
+            }
+            
+            .game-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hangman-image {
+                max-width: 300px;
+            }
+            
+            .key-btn {
+                width: 35px;
+                height: 45px;
+                font-size: 1.1rem;
+            }
+
+            .character-selector {
+                top: 10px;
+                right: 10px;
+            }
+
+            .character-menu {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .word-display {
+                font-size: 1.8rem;
+            }
+            
+            .letter {
+                width: 30px;
+            }
+            
+            .key-btn {
+                width: 30px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .character-menu {
+                width: 180px;
+                gap: 8px;
+            }
+
+            .character-option {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="fortnite-bg"></div>
+    
+    <header class="fortnite-header">
+        <div class="header-content">
+            <div class="character-selector">
+                <div class="character-btn" id="character-btn">
+                    <img src="img/default.png" alt="Personagem">
+                </div>
+                <div class="character-menu" id="character-menu">
+                    <img src="img/Jonesy.png" alt="Personagem">
+                    <img src="img/Lynx.png" alt="Personagem">
+                    <img src="img/Peely.png" alt="Personagem">
+                    <img src="img/Peixoto.png" alt="Personagem">
+                    <img src="img/Raven.png" alt="Personagem">
+                </div>
+            </div>
+            <div class="vbucks-display">
+                <a href="index.html">Tela Inicial</a>
+                    <img src="img/vbucks.webp" alt="Home"> 
+            </div>
+            <div class="header-logo">FORCA ROYALE</div>
+        </div>
+    </header>
+    
+    <div class="fortnite-container">
+        
+        <div class="game-area">
+            <div class="hangman-image">
+                <img src="img/hangman-0.png" alt="Jogo da Forca" id="hangman-img">
+            </div>
+            
+            <div class="game-content">
+                <div class="word-display" id="word-display"></div>
+                <div class="clue" id="clue">Carregando dica...</div>
+                <div class="keyboard" id="keyboard"></div>
+                <button class="new-game">Novo Jogo</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="fortnite-notification">
+        <div class="notification-bar"></div>
+        <div class="notification-content">
+            <img src="img/vbucks.webp" alt="VBucks">
+            <p id="notification-message">Bem-vindo ao Forca Royale!</p>
+        </div>
+    </div>
+    
+    <script>
+        // Lista de personagens (adicione os caminhos das imagens dos seus personagens)
+        const characters = [
+            { id: 'default', name: 'Padrão', image: 'img/Default.png' },
+            { id: 'peely', name: 'Peely', image: 'img/Peely.png' },
+            { id: 'jonesy', name: 'Jonesy', image: 'img/Jonesy.png' },
+            { id: 'raven', name: 'Raven', image: 'img/Raven.png' },
+            { id: 'fishstick', name: 'Peixoto', image: 'img/Peixoto.png' },
+        ];
+
+        // Lista de palavras e dicas (Fortnite theme)
+        const words = [
+            { word: "VIRA VIRA", clue: "Item de cura que restaura vida e escudo" },
+            { word: "PICARETA", clue: "Ferramenta para coletar materiais" },
+            { word: "PARAQUEDAS", clue: "Item usado no início da partida" },
+            { word: "TORRES TORTAS", clue: "Local icônico no mapa do Fortnite" },
+            { word: "FONTES SALGADAS", clue: "POI introduzido no Capítulo 4" },
+            { word: "DESEMPUXADORA", clue: "Arma que te puxará para lugares altos" },
+            { word: "QUICANTE", clue: "Armadilha que faz os jogadores quicarem" },
+            { word: "VARINHA ESTELAR", clue: "Picarata muito utilizada " },
+            { word: "PEIXOTO", clue: "Skin de peixe antropomórfico" },
+            { word: "RIFLE DE RAJADA", clue: "Rifle de assalto com rajada de 3 tiros" },
+            { word: "ATADURA", clue: "Item de cura consumível" },
+            { word: "MIDAS", clue: "Personagem muito famoso na história do jogo" }
+        ];
+            
+        // Estado do jogo
+        const gameState = {
+            word: "",
+            clue: "",
+            guessedLetters: [],
+            wrongAttempts: 0,
+            maxAttempts: 6,
+            gameActive: false,
+            currentCharacter: characters[0] // Personagem padrão
+        };
+
+        // Elementos DOM
+        const elements = {
+            hangmanImg: document.getElementById('hangman-img'),
+            wordDisplay: document.getElementById('word-display'),
+            clueDisplay: document.getElementById('clue'),
+            keyboard: document.getElementById('keyboard'),
+            newGameBtn: document.querySelector('.new-game'),
+            notification: document.querySelector('.fortnite-notification'),
+            notificationMsg: document.getElementById('notification-message'),
+            characterBtn: document.getElementById('character-btn'),
+            characterMenu: document.getElementById('character-menu')
+        };
+
+        // Inicializar o seletor de personagens
+        function initCharacterSelector() {
+            // Limpar menu de personagens
+            elements.characterMenu.innerHTML = '';
+            
+            // Adicionar opções de personagens
+            characters.forEach(character => {
+                const characterOption = document.createElement('div');
+                characterOption.className = 'character-option';
+                if (character.id === gameState.currentCharacter.id) {
+                    characterOption.classList.add('selected');
+                }
+                characterOption.dataset.id = character.id;
+                characterOption.innerHTML = `<img src="${character.image}" alt="${character.name}">`;
+                
+                characterOption.addEventListener('click', () => {
+                    selectCharacter(character);
+                });
+                
+                elements.characterMenu.appendChild(characterOption);
+            });
+            
+            // Configurar botão de personagem
+            elements.characterBtn.addEventListener('click', () => {
+                elements.characterMenu.classList.toggle('show');
+            });
+            
+            // Fechar menu quando clicar fora
+            document.addEventListener('click', (e) => {
+                if (!elements.characterBtn.contains(e.target)) {
+                    elements.characterMenu.classList.remove('show');
+                }
+            });
+        }
+        
+        // Selecionar personagem
+        function selectCharacter(character) {
+            gameState.currentCharacter = character;
+            elements.characterBtn.innerHTML = `<img src="${character.image}" alt="${character.name}">`;
+            
+            // Atualizar seleção no menu
+            document.querySelectorAll('.character-option').forEach(option => {
+                option.classList.remove('selected');
+                if (option.dataset.id === character.id) {
+                    option.classList.add('selected');
+                }
+            });
+            
+            showNotification(`Personagem selecionado: ${character.name}`);
+        }
+
+        // Inicializar o jogo
+        function initGame() {
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            gameState.word = randomWord.word;
+            gameState.clue = randomWord.clue;
+            gameState.guessedLetters = [];
+            gameState.wrongAttempts = 0;
+            gameState.gameActive = true;
+
+            updateHangmanImage();
+            updateWordDisplay();
+            elements.clueDisplay.textContent = gameState.clue;
+            createKeyboard();
+            
+            showNotification("Novo jogo iniciado! Boa sorte!");
+        }
+
+        // Atualizar imagem da forca
+        function updateHangmanImage() {
+            elements.hangmanImg.src = `img/hangman-${gameState.wrongAttempts}.png`;
+        }
+
+        // Atualizar display da palavra
+        function updateWordDisplay() {
+            elements.wordDisplay.innerHTML = '';
+            
+            for (const letter of gameState.word) {
+                const letterElement = document.createElement('span');
+                letterElement.className = 'letter';
+                
+                if (gameState.guessedLetters.includes(letter) || letter === ' ') {
+                    letterElement.textContent = letter;
+                    if (letter !== ' ') letterElement.classList.add('visible');
+                } else {
+                    letterElement.textContent = '_';
+                }
+                
+                elements.wordDisplay.appendChild(letterElement);
+            }
+
+            // Verificar vitória
+            if (checkWin()) {
+                gameState.gameActive = false;
+                showNotification("Victory Royale! Você acertou!", true);
+            }
+        }
+
+        // Verificar se o jogador ganhou
+        function checkWin() {
+            return [...gameState.word.replace(/ /g, '')].every(letter => 
+                gameState.guessedLetters.includes(letter)
+            );
+        }
+
+        // Criar teclado
+        function createKeyboard() {
+            elements.keyboard.innerHTML = '';
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+
+            alphabet.forEach(letter => {
+                const keyBtn = document.createElement('button');
+                keyBtn.className = 'key-btn';
+                keyBtn.textContent = letter;
+                keyBtn.dataset.letter = letter;
+                
+                if (gameState.guessedLetters.includes(letter)) {
+                    keyBtn.disabled = true;
+                    keyBtn.classList.add(gameState.word.includes(letter) ? 'correct' : 'wrong');
+                }
+                
+                keyBtn.addEventListener('click', () => handleGuess(letter));
+                elements.keyboard.appendChild(keyBtn);
+            });
+        }
+
+        // Processar palpite
+        function handleGuess(letter) {
+            if (!gameState.gameActive || gameState.guessedLetters.includes(letter)) return;
+
+            gameState.guessedLetters.push(letter);
+            
+            if (!gameState.word.includes(letter)) {
+                gameState.wrongAttempts++;
+                updateHangmanImage();
+                
+                // Verificar derrota
+                if (gameState.wrongAttempts >= gameState.maxAttempts) {
+                    gameState.gameActive = false;
+                    showNotification(`Game Over! A palavra era: ${gameState.word}`, true);
+                    revealWord();
+                }
+            }
+            
+            updateWordDisplay();
+            createKeyboard();
+        }
+
+        // Revelar palavra quando perde
+        function revealWord() {
+            const wordLetters = [...new Set(gameState.word.replace(/ /g, '').split(''))];
+            wordLetters.forEach(letter => {
+                if (!gameState.guessedLetters.includes(letter)) {
+                    gameState.guessedLetters.push(letter);
+                }
+            });
+            updateWordDisplay();
+            createKeyboard();
+        }
+
+        // Mostrar notificação
+        function showNotification(message, isImportant = false) {
+            elements.notificationMsg.textContent = message;
+            elements.notification.classList.add('show');
+            
+            if (isImportant) {
+                elements.notification.style.borderColor = '#ff0000';
+                elements.notification.querySelector('.notification-bar').style.background = 
+                    'linear-gradient(to right, #ff0000, #ff7b00)';
+            }
+            
+            setTimeout(() => {
+                elements.notification.classList.remove('show');
+                elements.notification.style.borderColor = 'var(--fn-yellow)';
+                elements.notification.querySelector('.notification-bar').style.background = 
+                    'linear-gradient(to right, var(--fn-yellow), var(--fn-orange))';
+            }, 3000);
+        }
+
+        // Event listeners
+        elements.newGameBtn.addEventListener('click', initGame);
+
+        // Suporte a teclado físico
+        document.addEventListener('keydown', (e) => {
+            if (!gameState.gameActive) return;
+            
+            const key = e.key.toUpperCase();
+            if (/^[A-Z]$/.test(key)) {
+                const keyBtn = document.querySelector(`.key-btn[data-letter="${key}"]`);
+                if (keyBtn && !keyBtn.disabled) {
+                    keyBtn.classList.add('active');
+                    handleGuess(key);
+                }
+            }
+        });
+
+        // Iniciar o jogo ao carregar
+        window.addEventListener('DOMContentLoaded', () => {
+            initCharacterSelector();
+            initGame();
+        });
+    </script>
+</body>
+</html>
